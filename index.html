@@ -25,51 +25,46 @@
       <div class="selection-marquee">
       <h2>ESCULL UNA COLLA PER CADA JUGADOR</h2>
       
-      <div class="inputs-column">
-        <div class="player-input-row">
-          <div class="player-label-zone">
-            <span class="file-label">Jugador <span class="text-color-red">VERMELL</span></span>
-            <label class="switch">
-              <input type="checkbox" id="cpuToggle-red">
-              <span class="slider-switch"><span class="cpu-inside-text">CPU</span></span>
-            </label>
-          </div>
-          <input id="imageRed" type="file" accept="image/*" />
-        </div>
-
-        <div class="player-input-row">
-          <div class="player-label-zone">
-            <span class="file-label">Jugador <span class="text-color-green">VERD</span></span>
-            <label class="switch">
-              <input type="checkbox" id="cpuToggle-green">
-              <span class="slider-switch"><span class="cpu-inside-text">CPU</span></span>
-            </label>
-          </div>
-          <input id="imageGreen" type="file" accept="image/*" />
-        </div>
-
-        <div class="player-input-row">
-          <div class="player-label-zone">
-            <span class="file-label">Jugador <span class="text-color-yellow">GROC</span></span>
-            <label class="switch">
-              <input type="checkbox" id="cpuToggle-yellow">
-              <span class="slider-switch"><span class="cpu-inside-text">CPU</span></span>
-            </label>
-          </div>
-          <input id="imageYellow" type="file" accept="image/*" />
-        </div>
-
-        <div class="player-input-row">
-          <div class="player-label-zone">
-            <span class="file-label">Jugador <span class="text-color-blue">BLAU</span></span>
-            <label class="switch">
-              <input type="checkbox" id="cpuToggle-blue">
-              <span class="slider-switch"><span class="cpu-inside-text">CPU</span></span>
-            </label>
-          </div>
-          <input id="imageBlue" type="file" accept="image/*" />
-        </div>
-      </div>
+<div class="player-input-row">
+  <div class="player-label-zone">
+    <span class="file-label">Jugador <span class="text-color-red">VERMELL</span></span>
+    <label class="switch">
+      <input type="checkbox" id="cpuToggle-red">
+      <span class="slider-switch"><span class="cpu-inside-text">CPU</span></span>
+    </label>
+  </div>
+  <button id="btnImageRed" type="button" class="secondary select-image-btn">Escollir Imatge</button>
+</div>
+<div class="player-input-row">
+  <div class="player-label-zone">
+    <span class="file-label">Jugador <span class="text-color-green">VERD</span></span>
+    <label class="switch">
+      <input type="checkbox" id="cpuToggle-green">
+      <span class="slider-switch"><span class="cpu-inside-text">CPU</span></span>
+    </label>
+  </div>
+  <button id="btnImageGreen" type="button" class="secondary select-image-btn">Escollir Imatge</button>
+</div>
+<div class="player-input-row">
+  <div class="player-label-zone">
+    <span class="file-label">Jugador <span class="text-color-yellow">GROC</span></span>
+    <label class="switch">
+      <input type="checkbox" id="cpuToggle-yellow">
+      <span class="slider-switch"><span class="cpu-inside-text">CPU</span></span>
+    </label>
+  </div>
+  <button id="btnImageYellow" type="button" class="secondary select-image-btn">Escollir Imatge</button>
+</div>
+<div class="player-input-row">
+  <div class="player-label-zone">
+    <span class="file-label">Jugador <span class="text-color-blue">BLAU</span></span>
+    <label class="switch">
+      <input type="checkbox" id="cpuToggle-blue">
+      <span class="slider-switch"><span class="cpu-inside-text">CPU</span></span>
+    </label>
+  </div>
+  <button id="btnImageBlue" type="button" class="secondary select-image-btn">Escollir Imatge</button>
+</div>
 
 <!-- Reemplaza el bloque "dice-duration-setting" por este: -->
 <div class="dice-duration-setting" style="margin-top: 24px; text-align: center; width: 100%; max-width: 400px; margin-left: auto; margin-right: auto;">
@@ -123,6 +118,15 @@
       <div id="selectionStatus" class="status-panel hidden"></div>
     </section>
 
+    <section class="gallery-panel hidden" id="galleryPanel">
+      <div class="selection-marquee">
+      <h2>ESCULL LA TEVA FITXA</h2>
+      <div id="galleryGrid" class="gallery-grid"></div>
+      <div class="selection-actions" style="margin-top: 24px;">
+      <button id="closeGalleryBtn" type="button" class="secondary">CANCEL·LAR</button>
+      </div>
+      </div>
+    </section>
     <section class="board-panel hidden" id="boardPanel">
       <div class="board-screen">
         <div id="statusPanel" class="status-panel"></div>

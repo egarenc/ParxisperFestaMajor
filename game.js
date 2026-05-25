@@ -23,7 +23,8 @@ const players = [
   {
     name: 'VERMELL',
     color: 'red',
-    inputId: 'imageRed',
+    btnId: 'btnImageRed',
+    //inputId: 'imageRed',
     homeId: 'homeRed',
     image: null,
     isCPU: false,
@@ -37,7 +38,8 @@ const players = [
   {
     name: 'VERD',
     color: 'green',
-    inputId: 'imageGreen',
+    btnId: 'btnImageGreen',
+    //inputId: 'imageGreen',
     homeId: 'homeGreen',
     image: null,
     isCPU: false,
@@ -51,7 +53,8 @@ const players = [
   {
     name: 'GROC',
     color: 'yellow',
-    inputId: 'imageYellow',
+    btnId: 'btnImageYellow',
+    //inputId: 'imageYellow',
     homeId: 'homeYellow',
     image: null,
     isCPU: false,
@@ -65,7 +68,8 @@ const players = [
   {
     name: 'BLAU',
     color: 'blue',
-    inputId: 'imageBlue',
+    btnId: 'btnImageBlue',
+    //inputId: 'imageBlue',
     homeId: 'homeBlue',
     image: null,
     isCPU: false,
@@ -120,12 +124,21 @@ const soundIcon = document.getElementById('soundIcon');
 const soundStatusText = document.getElementById('soundStatusText');
 const soundButton = document.getElementById('soundButton');
 let currentScreen = 'welcome';
+const galleryPanel = document.getElementById('galleryPanel');
+const galleryGrid = document.getElementById('galleryGrid');
+const closeGalleryBtn = document.getElementById('closeGalleryBtn');
+
+let playerSelectingImage = null; // Guarda qué jugador está escogiendo foto
+
+// Configura la ruta de las imágenes preestablecidas (Asegúrate de tener una carpeta "avatars" con imágenes nombradas 1.png, 2.png, etc.)
+const totalGalleryImages = 31;
 
 /**
  * Lee un archivo de imagen seleccionado por el usuario y lo convierte a Base64.
  * @param {File} file - El archivo de imagen.
  * @returns {Promise<string>} Promesa con la URL en formato DataURL.
  */
+/*
 function readImageFile(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -134,7 +147,7 @@ function readImageFile(file) {
     reader.readAsDataURL(file);
   });
 }
-
+*/
 /**
  * Limpia el temporizador de la animación visual del dado.
  */
@@ -669,7 +682,7 @@ function renderBoardPieces() {
 
 /**
  * Vincula la carga de imágenes personalizadas por el usuario para su uso como fichas.
- */
+
 function setupInputHandlers() {
   players.forEach((player) => {
     const input = document.getElementById(player.inputId);
@@ -692,11 +705,91 @@ function setupInputHandlers() {
     }
   });
 }
+**/
+
+/**
+ * Abre la galería para un jugador específico.
+ */
+function openGalleryForPlayer(player) {
+  if (isSoundEnabled) buttonSound.play().catch(() => {});
+  playerSelectingImage = player;
+  showScreen('gallery');
+}
+
+/**
+ * Genera el grid de imágenes de la galería dinámicamente.
+ */
+function initGallery() {
+  galleryGrid.innerHTML = '';
+  // Genera las +30 imágenes (ejemplo: avatars/1.png, avatars/2.png...)
+  for (let i = 1; i <= totalGalleryImages; i++) {
+    const imgPath = `avatars/${i}.jpg`; // Ajusta la carpeta o extensión según necesites
+    
+    const imgEl = document.createElement('img');
+    imgEl.src = imgPath;
+    imgEl.className = 'gallery-item';
+    imgEl.alt = `Avatar ${i}`;
+    
+    imgEl.addEventListener('click', () => {
+      if (playerSelectingImage) {
+        if (isSoundEnabled) tokenSound.play().catch(() => {});
+        playerSelectingImage.image = imgPath; // Guarda la ruta
+        updatePlayerPreview(playerSelectingImage);
+        showScreen('selection'); // Vuelve a la selección
+        playerSelectingImage = null;
+      }
+    });
+    
+    galleryGrid.appendChild(imgEl);
+  }
+}
+
+/**
+ * Vincula el evento de abrir la galería a los botones de cada jugador.
+ */
+function setupInputHandlers() {
+  players.forEach((player) => {
+    const btn = document.getElementById(player.btnId);
+    if (btn) {
+      btn.addEventListener('click', () => openGalleryForPlayer(player));
+    }
+  });
+
+  // Botón para cancelar y salir de la galería
+  if (closeGalleryBtn) {
+    closeGalleryBtn.addEventListener('click', () => {
+      if (isSoundEnabled) buttonSound.play().catch(() => {});
+      playerSelectingImage = null;
+      showScreen('selection');
+    });
+  }
+}
+
+/**
+ * Actualiza el botón para mostrar una mini previsualización de la ficha elegida.
+ */
+function updatePlayerPreview(player) {
+  const btn = document.getElementById(player.btnId);
+  if (!btn) return;
+  
+  if (player.image) {
+    // Si tiene imagen, la mostramos en pequeño dentro del botón
+    btn.innerHTML = `<img src="${player.image}" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover;"> Fitxa Seleccionada`;
+    // Le damos un borde del color del jugador para que quede claro
+    btn.style.borderColor = player.color === 'red' ? 'var(--red)' :
+                            player.color === 'green' ? 'var(--green)' :
+                            player.color === 'yellow' ? 'var(--yellow)' : 'var(--blue)';
+  } else {
+    btn.textContent = 'Escollir Imatge';
+    btn.style.borderColor = '';
+  }
+}
 
 /**
  * Actualiza visualmente el estado del cargador de imágenes.
  * @param {Object} player - El objeto del jugador.
  */
+/*
 function updatePlayerPreview(player) {
   const input = document.getElementById(player.inputId);
   if (!input) return;
@@ -709,7 +802,7 @@ function updatePlayerPreview(player) {
       player.name === 'GROC' ? 'Jugador GROC' : 'Jugador BLAU';
   }
 }
-
+*/
 /**
  * Comprueba si al menos un jugador ha subido una foto personalizada.
  */
@@ -726,6 +819,7 @@ function showScreen(screen) {
   welcomePanel.classList.toggle('hidden', screen !== 'welcome');
   selectionPanel.classList.toggle('hidden', screen !== 'selection');
   boardPanel.classList.toggle('hidden', screen !== 'game');
+  galleryPanel.classList.toggle('hidden', screen !== 'gallery');
   resetGameState();
   selectionStatus.classList.add('hidden');
   rollDiceButton.disabled = screen !== 'game';
@@ -1928,7 +2022,7 @@ setInterval(() => {
 }, 1200); // Se repite la evaluación cada 1.2s
 
 
-// Asegúrate de inicializarlo al final del archivo ejecutándolo junto a la otra función:
 setupCpuHandlers();
+initGallery(); // <-- INICIALIZA LAS IMÁGENES AQUÍ
 setupInputHandlers();
 showScreen('welcome');
