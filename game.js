@@ -858,7 +858,7 @@ function startGame() {
 
   resetGameState();
   showScreen('game');
-  const welcomeMsg = `EMPIEZA EL JUGADOR  ${current.name}...`;
+  const welcomeMsg = `COMENÇA EL JUGADOR  ${current.name}...`;
   startCountdown(5, welcomeMsg);
   renderAll();
 }
@@ -1101,10 +1101,10 @@ function endGame(winner) {
 
   // Muestra el mensaje de victoria dentro del diálogo flotante unificado
   renderDiceDialog(
-    `🏆 ¡Victoria para ${winner.name}! La partida ha terminado.`,
+    `🏆 ¡GUANYADOR ${winner.name}!`,
     [
       {
-        label: 'Nueva partida',
+        label: 'PARTIDA NOVA',
         onClick: () => {
           if (isSoundEnabled) {
     buttonSound.currentTime = 0; // Reinicia el audio por si se pulsa muy rápido
@@ -1304,7 +1304,7 @@ function finishTurn() {
   currentRoll = null;
   
   showDiceOverlay(); 
-  renderDiceDialog(`TURNO PARA ${next.name}`, [], true);
+  renderDiceDialog(`TORN PEL ${next.name}`, [], true);
   
   rollDiceButton.disabled = false;
   statusPanel.textContent = '';
@@ -1322,10 +1322,10 @@ function handlePostMove() {
     if (bonusMoves.length > 0) {
       // 1. Mostramos el diálogo de forma persistente en el overlay con un botón para avanzar
       renderDiceDialog(
-        '¡Has capturado una ficha! Cuentate 20.', 
+        '¡HAS MENJAT FITXA! CONTA 20', 
         [
           { 
-            label: 'Elegir Ficha +20', 
+            label: 'MOU FITXA +20', 
             onClick: () => {
               // 2. Al hacer clic, activamos las fichas parpadeantes en el tablero
               setPendingMoveOptions(
@@ -1337,7 +1337,7 @@ function handlePostMove() {
                   handlePostMove();
                   }, 1000);
                 }, 
-                'Elige una ficha para avanzar 20 casillas:'
+                'ESCULL UNA FITXA PER AVANÇAR 20 CASILLES'
               );
               // Forzamos el cierre del overlay para ir al tablero
               setDiceOverlayVisibility(false);
@@ -1352,8 +1352,8 @@ function handlePostMove() {
 
 
     current.pendingCaptureBonus = false;
-    renderDiceDialog(`${current.name} ha capturado una ficha, pero no tiene otra ficha válida para avanzar 20 casillas.`, [
-      { label: 'Continuar', onClick: () => { hideDiceOverlay(); finishTurn(); } }
+    renderDiceDialog(`${current.name} HA MENJAT UNA FITXA, PERÒ NO TENS FITXES AMB MOVIMENT POSIBLE.`, [
+      { label: 'CONTINUAR', onClick: () => { hideDiceOverlay(); finishTurn(); } }
     ], false);
     showDiceOverlay();
     return; 
@@ -1369,10 +1369,10 @@ if (current.pendingFinishBonus) {
 
     if (validOptions.length > 0) {
       renderDiceDialog(
-        '¡Has llegado a la meta! Cuentate 10.',
+        '¡HAS ARRIBAT A LA META! CONTA 10',
         [
           {
-            label: 'Elegir Ficha +10',
+            label: 'MOU FITXA +10',
             onClick: () => {
               setPendingMoveOptions(
                 validOptions, // Usamos las opciones validadas que no devuelven null
@@ -1383,7 +1383,7 @@ if (current.pendingFinishBonus) {
                     handlePostMove();
                   }, 1000);
                 },
-                'Has llegado a la meta. Elige otra ficha y cuenta 10 casillas:'
+                'HAS ARRIBAT A LA META, ESCULL UNA FITXA PER CONTAR 10:'
               );
               setDiceOverlayVisibility(false);
             }
@@ -1399,9 +1399,9 @@ if (current.pendingFinishBonus) {
     //console.log(`⚠️ ${current.name} tiene un bonus de +10, pero ninguna ficha puede moverlo sin pasarse. Se pierde el bonus.`);
     current.pendingFinishBonus = false; // Limpiamos el bonus de forma segura para evitar bucles
     
-    renderDiceDialog(`${current.name} ha llegado a la meta, pero no tiene ninguna ficha que pueda avanzar 10 casillas sin pasarse.`, [
+    renderDiceDialog(`${current.name} HAS ARRIBAT A LA META PERÒ NO TENS FITXES AMB MOVIMENT POSIBLE.`, [
       { 
-        label: 'Continuar', 
+        label: 'CONTINUAR', 
         onClick: () => { 
           hideDiceOverlay(); 
           finishTurn(); // Pasa el turno al siguiente jugador de forma totalmente limpia
@@ -1416,7 +1416,7 @@ if (current.pendingFinishBonus) {
   if (currentRoll === 6 && current.consecutiveSixes < 3) {
     rollDiceButton.disabled = false;
     renderDiceFace(currentRoll);
-    renderDiceDialog(`TURNO DE ${current.name}<br>TIRA OTRA VEZ`, [], true);
+    renderDiceDialog(`TONR DE ${current.name}<br>TORNA A TIRAR`, [], true);
     return;
   }
 
@@ -1506,7 +1506,7 @@ function chooseReturnHome(piece) {
   current.consecutiveSixes = 0;
   current.pendingCaptureBonus = false;
   current.pendingFinishBonus = false;
-  statusPanel.textContent = `${current.name} devuelve una ficha a casa. Fin del turno.`;
+  statusPanel.textContent = `${current.name} RETORNA FITXA A CASA. FI DEL TORN.`;
   finishTurn();
 }
 
@@ -1604,7 +1604,7 @@ function processDiceResult(face) {
     renderDiceFace(6);
     
     // 2. Pintamos tu mensaje original en el diálogo y forzamos a que el overlay sea visible
-    renderDiceDialog('Demasiada suerte, has sacado tres 6s. Elige una ficha para devolverla a casa:', [], false);
+    renderDiceDialog('MASSA SORT, HAST TRET TRES 6s. ESCULL FITXA PER TORNAR-LA A CASA:', [], false);
     showDiceOverlay();
 
     // 3. Congelamos la pantalla 1 segundo antes de pasar al modo selección en el tablero
@@ -1617,11 +1617,11 @@ function processDiceResult(face) {
           (option) => {
             chooseReturnHome(option.piece);
           }, 
-          'DEMASIADA SUERTE<br>ELIGE UNA FICHA PARA DEVOLVERLA A CASA'
+          'MASSA SORT<br>ESCULL FITXA PER TORNAR-LA A CASA'
         );
       } else {
         // Copia de seguridad por si el jugador no tuviera fichas fuera de casa
-        statusPanel.textContent = `${current.name} ha sacado tres 6s pero no hay fichas en el tablero para devolver. Fin del turno.`;
+        statusPanel.textContent = `${current.name} HAS TRET TRES 6s, PERÒ NO TENS MOVIMENTS POSIBLES. FI DEL TORN.`;
         hideDiceOverlay();
         finishTurn();
       }
@@ -1633,7 +1633,7 @@ function processDiceResult(face) {
   const moves = getAvailableMoves(current, face);
   if (moves.length === 0) {
     if (face === 6) {
-      renderDiceDialog(`${current.name} NO PUEDES MOVER FICHA<br>¡TIRA OTRA VEZ!`, [], true);
+      renderDiceDialog(`${current.name} NO POTS MOURE FITXA<br>¡TIRA UN ALTRA VEGADA!`, [], true);
       rollDiceButton.disabled = false;
       return;
     }
@@ -1650,8 +1650,8 @@ function processDiceResult(face) {
 
     if (face === 5 && current.pieces.some((piece) => piece.status === 'home')) {
       // 🚀 CORRECCIÓN: Vinculamos el click manual a ejecutarPasoTurnoAuto para limpiar el timeout
-      renderDiceDialog(`${current.name} NO PUEDES SACAR FICHA DE CASA; LA CASILLA INICIAL ESTÁ BLOQUEADA.`, [
-        { label: 'PASAR TURNO', onClick: ejecutarPasoTurnoAuto }
+      renderDiceDialog(`${current.name} NO POTS TREURE DE CASA; LA CASILLA INICIAL ESTÀ BLOQUEJADA.`, [
+        { label: 'PASAR TORN', onClick: ejecutarPasoTurnoAuto }
       ], false);
       showDiceOverlay();
 
@@ -1663,8 +1663,8 @@ function processDiceResult(face) {
     }
 
     // 🚀 CORRECCIÓN: Vinculamos el click manual a ejecutarPasoTurnoAuto para limpiar el timeout
-    renderDiceDialog(`${current.name} NO TIENES MOVIMIENTOS POSIBLES`, [
-      { label: 'PASAR TURNO', onClick: ejecutarPasoTurnoAuto }
+    renderDiceDialog(`${current.name} NO TENS MOVIMENTS POSIBLES`, [
+      { label: 'PASAR TORN', onClick: ejecutarPasoTurnoAuto }
     ], false);
     showDiceOverlay();
 
@@ -1678,7 +1678,7 @@ function processDiceResult(face) {
   setPendingMoveOptions(
     moves,
     performMove,
-    `TURNO PARA ${current.name}. Selecciona una de tus fichas parpadeantes en el tablero para moverla con el número ${face}:`
+    `TORN PER ${current.name}. SELECCIONA FITXA PER MOURE. ${face}:`
   );
 }
 
@@ -1775,7 +1775,7 @@ feedbackForm.addEventListener('submit', async (e) => {
   // Construye el payload incluyendo el campo del Remitente (o un valor por defecto si está vacío)
   const payload = {
     fecha: new Date().toLocaleString(),
-    sender: feedbackSender.value.trim() || 'Anónimo',
+    sender: feedbackSender.value.trim() || 'Anònim',
     comment: feedbackMessage.value
   };
 
@@ -1792,7 +1792,7 @@ feedbackForm.addEventListener('submit', async (e) => {
 
     // Petición enviada (en modo no-cors la respuesta es opaca, asumimos éxito al no saltar al catch)
     feedbackForm.classList.add('hidden');
-    feedbackStatus.textContent = '¡Gracias! Tus comentarios se han enviado correctamente.';
+    feedbackStatus.textContent = '¡Gràcies! Els teus comentaris s\'han enviat correctament.';
     feedbackStatus.style.color = '#4ade80'; // Color verde brillante adaptado a tu estilo
 
     // Espera 2.5 segundos mostrando el éxito y cierra el modal automáticamente
@@ -1802,7 +1802,7 @@ feedbackForm.addEventListener('submit', async (e) => {
 
   } catch (error) {
     console.error('Error enviando el formulario:', error);
-    feedbackStatus.textContent = 'Hubo un problema al enviar. Inténtalo de nuevo.';
+    feedbackStatus.textContent = 'Hi ha hagut un error en enviar els teus comentaris. Si us plau, torna-ho a intentar més tard.';
     feedbackStatus.style.color = '#ff4d4d'; // Color rojo brillante adaptado a tu estilo
   } finally {
     submitFeedbackButton.disabled = false;
@@ -1840,12 +1840,12 @@ if (toggleSoundButton) {
     
     if (isSoundEnabled) {
       soundIcon.textContent = '🔊';
-      soundStatusText.textContent = 'Sonido Activo';
+      soundStatusText.textContent = 'SO ACTIU';
       toggleSoundButton.classList.remove('muted-active');
       toggleSoundButton.classList.add('secondary');
     } else {
       soundIcon.textContent = '🔇';
-      soundStatusText.textContent = 'Silenciado';
+      soundStatusText.textContent = 'SILENCIAT';
       toggleSoundButton.classList.remove('secondary');
       toggleSoundButton.classList.add('muted-active');
     }

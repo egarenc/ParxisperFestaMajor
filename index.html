@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Parchís Familiar</title>
+  <title>PARXÍS PER FESTA MAJOR</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -12,7 +12,7 @@
       <div class="welcome-content">
         <!-- 🍿 Envoltura de marquesina con efecto blur -->
         <div class="welcome-marquee">
-          <h1>Vamos a echar una partida al PARCHÍS</h1>
+          <h1>Fem una partideta al PARXÍS</h1>
         </div>
         <div class="welcome-actions">
           <button id="feedbackButton" type="button" class="secondary">FEEDBACK</button>
@@ -74,7 +74,7 @@
 <!-- Reemplaza el bloque "dice-duration-setting" por este: -->
 <div class="dice-duration-setting" style="margin-top: 24px; text-align: center; width: 100%; max-width: 400px; margin-left: auto; margin-right: auto;">
   <label for="diceDurationSlider" style="display: block; font-weight: bold; margin-bottom: 12px;">
-    Tiempo de tirada de dado: <span id="diceDurationValue">3</span> segundos
+    Temps de tirada del dau: <span id="diceDurationValue">3</span> segons
   </label>
   
   <div style="display: flex; align-items: center; justify-content: center; gap: 15px; font-weight: bold;">
@@ -111,13 +111,13 @@
 <div class="sound-setting" style="margin-top: 24px; text-align: center; width: 100%; max-width: 400px; margin-left: auto; margin-right: auto;">
   <!-- <span style="display: block; font-weight: bold; margin-bottom: 12px;">Efectos de sonido:</span>-->
   <button type="button" id="toggleSoundButton" class="secondary" style="width: 60%; padding: 10px 20px; text-transform: uppercase; font-size: 0.9rem; display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
-    <span id="soundIcon">🔊</span> <span id="soundStatusText">SONIDO ACTIVO</span>
+    <span id="soundIcon">🔊</span> <span id="soundStatusText">SO ACTIU</span>
   </button>
 </div>
       </div>
     </div>
       <div class="selection-actions">
-        <button id="backButton" type="button" class="secondary">VOLVER</button>
+        <button id="backButton" type="button" class="secondary">TORNAR</button>
         <button id="startButton" type="button" class="primary">INICIAR PARTIDA</button>
       </div>
       <div id="selectionStatus" class="status-panel hidden"></div>
@@ -130,13 +130,13 @@
       </div>
       <div class="game-actions-footer" style="text-align: center; margin-top: 20px; width: 100%; padding-bottom: 20px;">
         <button type="button" id="exitGameButton" style="background-color: #dc2626; color: #ffffff; padding: 12px 28px; font-weight: bold; border-radius: 8px; border: none; cursor: pointer; text-transform: uppercase; font-size: 0.95rem; box-shadow: 0 4px 6px rgba(0,0,0,0.2); transition: background-color 0.2s, transform 0.2s;">
-          Salir
+          Sortir
         </button>
       </div>
       <div class="dice-overlay hidden" id="diceOverlay">
         <div class="dice-dialog">
           <div class="dice-controls">
-            <button id="rollDiceButton" type="button">LANZAR DADO</button>
+            <button id="rollDiceButton" type="button">LLANÇAR DAU</button>
             <div id="diceFace" class="dice-face hidden" aria-label="Cara del dado"></div>
           </div>
           <div id="diceResult" class="dice-result hidden"></div>
@@ -147,18 +147,18 @@
     <!-- 🟢 MODAL NUEVO PARA EL FORMULARIO DE FEEDBACK (ACTUALIZADO CON REMITENTE) -->
     <div id="feedbackModal" class="dice-overlay hidden">
       <div class="dice-dialog" style="height: auto; min-height: 380px; gap: 16px;">
-        <h3 style="margin: 0; color: white;">Enviar Sugerencias o Errores</h3>
+        <h3 style="margin: 0; color: white;">Enviar Suggerències O Errors</h3>
         <form id="feedbackForm" style="width: 100%; display: flex; flex-direction: column; gap: 14px;">
           
           <!-- Nuevo campo Remitente -->
           <div style="display: flex; flex-direction: column; gap: 6px; text-align: left; width: 100%;">
-            <label for="feedbackSender" style="color: rgba(255, 255, 255, 0.8); font-size: 0.85rem; font-weight: bold;">Remitente:</label>
+            <label for="feedbackSender" style="color: rgba(255, 255, 255, 0.8); font-size: 0.85rem; font-weight: bold;">Remitent:</label>
             <input id="feedbackSender" type="text" placeholder="Tu nombre" maxlength="30" style="width: 100%; padding: 10px 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.3); color: white; font-family: inherit; font-size: 0.95rem;" />
           </div>
 
           <!-- Campo de Comentarios existente -->
           <div style="display: flex; flex-direction: column; gap: 6px; text-align: left; width: 100%;">
-            <label for="feedbackMessage" style="color: rgba(255, 255, 255, 0.8); font-size: 0.85rem; font-weight: bold;">Comentarios:</label>
+            <label for="feedbackMessage" style="color: rgba(255, 255, 255, 0.8); font-size: 0.85rem; font-weight: bold;">Comentaris:</label>
             <textarea id="feedbackMessage" placeholder="Escribe tus comentarios aquí..." maxlength="300" required rows="4" style="width: 100%; padding: 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.3); color: white; resize: none; font-family: inherit; font-size: 0.95rem;"></textarea>
           </div>
 
