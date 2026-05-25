@@ -589,22 +589,22 @@ button:disabled {
 
 /* Colores de texto para menciones en los diálogos */
 .text-color-red {
-  color: #ff4d4d; /* Un rojo brillante para que resalte sobre el fondo oscuro */
+  color: #ff4d4d; /* Un VERMELL brillante para que resalte sobre el fondo oscuro */
   font-weight: 700;
 }
 
 .text-color-green {
-  color: #4ade80; /* Verde brillante */
+  color: #4ade80; /* VERD brillante */
   font-weight: 700;
 }
 
 .text-color-yellow {
-  color: #facc15; /* Amarillo brillante */
+  color: #facc15; /* GROC brillante */
   font-weight: 700;
 }
 
 .text-color-blue {
-  color: #60a5fa; /* Azul brillante */
+  color: #60a5fa; /* BLAU brillante */
   font-weight: 700;
 }
 
@@ -670,7 +670,7 @@ button:disabled {
 }
 
 #exitGameButton:hover {
-  background-color: #b91c1c !important; /* Un rojo un poco más oscuro al pasar el cursor */
+  background-color: #b91c1c !important; /* Un VERMELL un poco más oscuro al pasar el cursor */
   transform: scale(1.03);
 }
 
@@ -807,7 +807,7 @@ button:disabled {
   z-index: 2;           /* Capa superior */
 }
 
-/* Color de fondo verde al activarse */
+/* Color de fondo VERD al activarse */
 .switch input:checked + .slider-switch {
   background: linear-gradient(135deg, #2da84f, #39d272);
   border-color: rgba(255, 255, 255, 0.4);

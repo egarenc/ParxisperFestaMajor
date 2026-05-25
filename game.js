@@ -21,56 +21,56 @@ function isSafeSquare(position) {
 // --- DEFINICIÓN DE LOS JUGADORES ---
 const players = [
   {
-    name: 'ROJO',
+    name: 'VERMELL',
     color: 'red',
     inputId: 'imageRed',
     homeId: 'homeRed',
     image: null,
     isCPU: false,
     startIndex: 39,       // Casilla de salida al tablero común
-    entranceIndex: 34,     // Última casilla antes de desviarse al carril de meta rojo
+    entranceIndex: 34,     // Última casilla antes de desviarse al carril de meta VERMELL
     pieces: [],
     consecutiveSixes: 0,
     pendingCaptureBonus: false,
     pendingFinishBonus: false,
   },
   {
-    name: 'VERDE',
+    name: 'VERD',
     color: 'green',
     inputId: 'imageGreen',
     homeId: 'homeGreen',
     image: null,
     isCPU: false,
     startIndex: 56,       // Casilla de salida al tablero común
-    entranceIndex: 51,     // Última casilla antes de desviarse al carril de meta verde
+    entranceIndex: 51,     // Última casilla antes de desviarse al carril de meta VERD
     pieces: [],
     consecutiveSixes: 0,
     pendingCaptureBonus: false,
     pendingFinishBonus: false,
   },
   {
-    name: 'AMARILLO',
+    name: 'GROC',
     color: 'yellow',
     inputId: 'imageYellow',
     homeId: 'homeYellow',
     image: null,
     isCPU: false,
     startIndex: 5,        // Casilla de salida al tablero común
-    entranceIndex: 68,     // Última casilla antes de desviarse al carril de meta amarillo
+    entranceIndex: 68,     // Última casilla antes de desviarse al carril de meta GROC
     pieces: [],
     consecutiveSixes: 0,
     pendingCaptureBonus: false,
     pendingFinishBonus: false,
   },
   {
-    name: 'AZUL',
+    name: 'BLAU',
     color: 'blue',
     inputId: 'imageBlue',
     homeId: 'homeBlue',
     image: null,
     isCPU: false,
     startIndex: 22,       // Casilla de salida al tablero común
-    entranceIndex: 17,     // Última casilla antes de desviarse al carril de meta azul
+    entranceIndex: 17,     // Última casilla antes de desviarse al carril de meta BLAU
     pieces: [],
     consecutiveSixes: 0,
     pendingCaptureBonus: false,
@@ -482,14 +482,14 @@ const finishPositions = {
 function formatColorNames(text) {
   if (!text) return '';
   return text
-    .replace(/\bRojo\b/g, '<span class="text-color-red">Rojo</span>')
-    .replace(/\bVerde\b/g, '<span class="text-color-green">Verde</span>')
-    .replace(/\bAmarillo\b/g, '<span class="text-color-yellow">Amarillo</span>')
-    .replace(/\bAzul\b/g, '<span class="text-color-blue">Azul</span>')
-    .replace(/\bROJO\b/g, '<span class="text-color-red">ROJO</span>')
-    .replace(/\bVERDE\b/g, '<span class="text-color-green">VERDE</span>')
-    .replace(/\bAMARILLO\b/g, '<span class="text-color-yellow">AMARILLO</span>')
-    .replace(/\bAZUL\b/g, '<span class="text-color-blue">AZUL</span>');
+    .replace(/\bVERMELL\b/g, '<span class="text-color-red">VERMELL</span>')
+    .replace(/\bVERD\b/g, '<span class="text-color-green">VERD</span>')
+    .replace(/\bGROC\b/g, '<span class="text-color-yellow">GROC</span>')
+    .replace(/\bBLAU\b/g, '<span class="text-color-blue">BLAU</span>')
+    .replace(/\bVERMELL\b/g, '<span class="text-color-red">VERMELL</span>')
+    .replace(/\bVERD\b/g, '<span class="text-color-green">VERD</span>')
+    .replace(/\bGROC\b/g, '<span class="text-color-yellow">GROC</span>')
+    .replace(/\bBLAU\b/g, '<span class="text-color-blue">BLAU</span>');
 }
 
 /**
@@ -704,9 +704,9 @@ function updatePlayerPreview(player) {
   if (player.image) {
     label.textContent = `${player.name} (imagen cargada)`;
   } else {
-    label.textContent = player.name === 'Rojo' ? 'Jugador Rojo' :
-      player.name === 'Verde' ? 'Jugador Verde' :
-      player.name === 'Amarillo' ? 'Jugador Amarillo' : 'Jugador Azul';
+    label.textContent = player.name === 'VERMELL' ? 'Jugador VERMELL' :
+      player.name === 'VERD' ? 'Jugador VERD' :
+      player.name === 'GROC' ? 'Jugador GROC' : 'Jugador BLAU';
   }
 }
 
@@ -1793,7 +1793,7 @@ feedbackForm.addEventListener('submit', async (e) => {
     // Petición enviada (en modo no-cors la respuesta es opaca, asumimos éxito al no saltar al catch)
     feedbackForm.classList.add('hidden');
     feedbackStatus.textContent = '¡Gràcies! Els teus comentaris s\'han enviat correctament.';
-    feedbackStatus.style.color = '#4ade80'; // Color verde brillante adaptado a tu estilo
+    feedbackStatus.style.color = '#4ade80'; // Color VERD brillante adaptado a tu estilo
 
     // Espera 2.5 segundos mostrando el éxito y cierra el modal automáticamente
     setTimeout(() => {
@@ -1803,7 +1803,7 @@ feedbackForm.addEventListener('submit', async (e) => {
   } catch (error) {
     console.error('Error enviando el formulario:', error);
     feedbackStatus.textContent = 'Hi ha hagut un error en enviar els teus comentaris. Si us plau, torna-ho a intentar més tard.';
-    feedbackStatus.style.color = '#ff4d4d'; // Color rojo brillante adaptado a tu estilo
+    feedbackStatus.style.color = '#ff4d4d'; // Color VERMELL brillante adaptado a tu estilo
   } finally {
     submitFeedbackButton.disabled = false;
   }
