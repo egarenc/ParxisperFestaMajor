@@ -1214,7 +1214,7 @@ function endGame(winner) {
 
   // Muestra el mensaje de victoria dentro del diálogo flotante unificado
   renderDiceDialog(
-    `🏆 ¡GUANYADOR ${winner.name}!`,
+    `🏆 ¡GUANYADOR ${winner.name}!. BONA FESTA MAJOR DE TERRASSA 2026`,
     [
       {
         label: 'PARTIDA NOVA',
