@@ -1,1 +1,0 @@
-Por último: Solo necesitas asegurarte de crear una carpeta llamada avatars en la raíz de tu proyecto y poner dentro tus ~30 imágenes cuadradas/redondeadas nombradas del 1.png al 32.png (o ajusta la variable totalGalleryImages y la extensión en la función initGallery según tus archivos reales).
