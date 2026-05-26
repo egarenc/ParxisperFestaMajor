@@ -26,7 +26,7 @@ const players = [
     btnId: 'btnImageRed',
     //inputId: 'imageRed',
     homeId: 'homeRed',
-    image: null,
+    image: '/avatars/bandera.jpg',
     isCPU: false,
     startIndex: 39,       // Casilla de salida al tablero común
     entranceIndex: 34,     // Última casilla antes de desviarse al carril de meta VERMELL
@@ -41,7 +41,7 @@ const players = [
     btnId: 'btnImageGreen',
     //inputId: 'imageGreen',
     homeId: 'homeGreen',
-    image: null,
+    image: '/avatars/bandera.jpg',
     isCPU: false,
     startIndex: 56,       // Casilla de salida al tablero común
     entranceIndex: 51,     // Última casilla antes de desviarse al carril de meta VERD
@@ -56,7 +56,7 @@ const players = [
     btnId: 'btnImageYellow',
     //inputId: 'imageYellow',
     homeId: 'homeYellow',
-    image: null,
+    image: '/avatars/bandera.jpg',
     isCPU: false,
     startIndex: 5,        // Casilla de salida al tablero común
     entranceIndex: 68,     // Última casilla antes de desviarse al carril de meta GROC
@@ -71,7 +71,7 @@ const players = [
     btnId: 'btnImageBlue',
     //inputId: 'imageBlue',
     homeId: 'homeBlue',
-    image: null,
+    image: '/avatars/bandera.jpg',
     isCPU: false,
     startIndex: 22,       // Casilla de salida al tablero común
     entranceIndex: 17,     // Última casilla antes de desviarse al carril de meta BLAU
@@ -772,9 +772,19 @@ function updatePlayerPreview(player) {
   const btn = document.getElementById(player.btnId);
   if (!btn) return;
   
-  if (player.image) {
-    // Si tiene imagen, la mostramos en pequeño dentro del botón
-    btn.innerHTML = `<img src="${player.image}" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover;"> Fitxa Seleccionada`;
+ if (player.image) {
+    // 🌟 CAMBIO: Dejamos ÚNICAMENTE la imagen dentro del botón, sin el texto de "Fitxa Seleccionada"
+    btn.innerHTML = `<img src="${player.image}" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; display: block;">`;
+    
+    // Forzamos el diseño centrado para que el círculo quede niquelado
+    btn.style.display = 'flex';
+    btn.style.alignItems = 'center';     // Centra horizontalmente
+    btn.style.justifyContent = 'center'; // Centra verticalmente
+    btn.style.height = 'auto';           // Permite que se adapte al tamaño de la imagen
+    btn.style.padding = '6px';           // Reducimos el relleno para que el botón no sea gigante
+    btn.style.width = 'fit-content';     // El botón se encoge abrazando solo a la foto
+    btn.style.minWidth = '50px';         // Un ancho mínimo pequeño para que quede redondo/ovalado elegante
+
     // Le damos un borde del color del jugador para que quede claro
     btn.style.borderColor = player.color === 'red' ? 'var(--red)' :
                             player.color === 'green' ? 'var(--green)' :
@@ -782,6 +792,15 @@ function updatePlayerPreview(player) {
   } else {
     btn.textContent = 'Escollir Imatge';
     btn.style.borderColor = '';
+    
+    // Limpiamos los estilos para que vuelva a su estado original de CSS al desmarcar
+    btn.style.display = '';
+    btn.style.alignItems = '';
+    btn.style.justifyContent = '';
+    btn.style.height = '';
+    btn.style.padding = '';
+    btn.style.width = '';
+    btn.style.minWidth = '';
   }
 }
 
@@ -1949,30 +1968,47 @@ if (toggleSoundButton) {
 }
 
 /**
- * 🤖 NUEVO: Vincula los listeners de los switches de CPU en la pantalla de selección
+ * Vincula los listeners de los switches de CPU en la pantalla de selección,
+ * asigna la bandera automáticamente y actualiza el estado lógico.
  */
 function setupCpuHandlers() {
   players.forEach((player) => {
-    // Buscamos el checkbox (ej: cpuToggle-red)
+    // Solo buscamos el checkbox del toggle
     const checkbox = document.getElementById(`cpuToggle-${player.color}`);
-    // Buscamos el input de archivo correspondiente (ej: imageRed)
-    const fileInput = document.getElementById(player.inputId);
+    const btn = document.getElementById(player.btnId);
 
-    if (checkbox && fileInput) {
+    // Solo validamos que exista el checkbox en el HTML
+    if (checkbox) {
       checkbox.addEventListener('change', (event) => {
         const isChecked = event.target.checked;
         
-        // 1. Actualiza la variable en la lógica del juego
+        // 1. Actualiza la variable real para que el auto-clicker funcione
         player.isCPU = isChecked;
         
-        // 2. Oculta o muestra el selector de archivos añadiendo/quitando la clase
+        // 2. Lógica automática de avatar
         if (isChecked) {
-          fileInput.classList.add('hidden-cpu-input');
+          player.image = '/avatars/bandera.jpg';
+          
+          if (btn) {
+            btn.innerHTML = '🤖 Bandera (CPU)';
+            btn.style.opacity = '0.6';
+            btn.disabled = true;
+            btn.style.whiteSpace = 'nowrap'; 
+            btn.style.width = 'max-content'; 
+            btn.style.minWidth = '160px';    
+          }
         } else {
-          fileInput.classList.remove('hidden-cpu-input');
+          player.image = null;
+          
+          if (btn) {
+            btn.innerHTML = 'Escollir Imatge';
+            btn.style.opacity = '1';
+            btn.disabled = false;
+            btn.style.whiteSpace = ''; 
+            btn.style.width = ''; 
+            btn.style.minWidth = '';
+          }
         }
-        
-        // console.log(`Jugador ${player.name} cambiado a CPU: ${player.isCPU}`);
       });
     }
   });

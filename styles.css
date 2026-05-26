@@ -826,17 +826,35 @@ button:disabled {
   transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
+/* 1. Esto da el formato y la separación a todo el bloque de cada jugador */
+.player-input-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px; /* 👈 Ahora SÍ separará un jugador del siguiente */
+  background: rgba(255, 255, 255, 0.03); /* Fondo sutil para delimitar cada zona */
+  padding: 12px;       /* Espacio interno para que el contenido no toque los bordes */
+  border-radius: 8px;  /* Bordes suaves para el contenedor */
+}
+
+/* Limita l'amplada dels botons d'escollir imatge i els centra */
+.player-input-row button {
+  max-width: 140px;      /* Amplada similar al selector/toggle superior */
+  width: 100%;           /* Permet que s'adapti si la pantalla és molt petita */
+  margin: 0 auto;        /* Centra el botó horitzontalment */
+  display: block;        /* Permet que el centrat amb 'margin: 0 auto' funcioni */
+}
+
+/* 2. Quita las propiedades anteriores del input (deja solo las de su animación) */
 .player-input-row input[type="file"] {
   display: block;
   margin: 0 auto;
   opacity: 1;
   transform: translateY(0);
   transition: opacity 0.25s ease, transform 0.25s ease;
-  margin-bottom: 24px; /* 👈 Esto añade una separación limpia y elegante entre cada jugador */
-  background: rgba(255, 255, 255, 0.03); /* Opcional: un fondo sutil para delimitar la zona de cada uno */
-  padding: 12px;       /* Opcional: espacio interno para que el fondo no quede pegado a los elementos */
-  border-radius: 8px;  /* Opcional: bordes suaves para el contenedor de cada jugador */
 }
+
+/* 3. Evita que el último jugador añada un espacio innecesario abajo del todo */
 .player-input-row:last-child {
   margin-bottom: 0;
 }
@@ -887,10 +905,13 @@ button:disabled {
 }
 
 .select-image-btn {
-  width: 100%;
+  width: fit-content;
+  min-width: 160px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
   background: rgba(255, 255, 255, 0.05);
+  padding: 8px 16px;
 }
