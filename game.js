@@ -26,7 +26,7 @@ const players = [
     btnId: 'btnImageRed',
     //inputId: 'imageRed',
     homeId: 'homeRed',
-    image: '/avatars/bandera.jpg',
+    image: 'avatars/bandera.jpg',
     isCPU: false,
     startIndex: 39,       // Casilla de salida al tablero común
     entranceIndex: 34,     // Última casilla antes de desviarse al carril de meta VERMELL
@@ -41,7 +41,7 @@ const players = [
     btnId: 'btnImageGreen',
     //inputId: 'imageGreen',
     homeId: 'homeGreen',
-    image: '/avatars/bandera.jpg',
+    image: 'avatars/bandera.jpg',
     isCPU: false,
     startIndex: 56,       // Casilla de salida al tablero común
     entranceIndex: 51,     // Última casilla antes de desviarse al carril de meta VERD
@@ -56,7 +56,7 @@ const players = [
     btnId: 'btnImageYellow',
     //inputId: 'imageYellow',
     homeId: 'homeYellow',
-    image: '/avatars/bandera.jpg',
+    image: 'avatars/bandera.jpg',
     isCPU: false,
     startIndex: 5,        // Casilla de salida al tablero común
     entranceIndex: 68,     // Última casilla antes de desviarse al carril de meta GROC
@@ -71,7 +71,7 @@ const players = [
     btnId: 'btnImageBlue',
     //inputId: 'imageBlue',
     homeId: 'homeBlue',
-    image: '/avatars/bandera.jpg',
+    image: 'avatars/bandera.jpg',
     isCPU: false,
     startIndex: 22,       // Casilla de salida al tablero común
     entranceIndex: 17,     // Última casilla antes de desviarse al carril de meta BLAU
@@ -1987,7 +1987,7 @@ function setupCpuHandlers() {
         
         // 2. Lógica automática de avatar
         if (isChecked) {
-          player.image = '/avatars/bandera.jpg';
+          player.image = 'avatars/bandera.jpg';
           
           if (btn) {
             btn.innerHTML = '🤖 Bandera (CPU)';
