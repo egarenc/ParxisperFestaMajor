@@ -1214,7 +1214,7 @@ function endGame(winner) {
 
   // Muestra el mensaje de victoria dentro del diálogo flotante unificado
   renderDiceDialog(
-    `🏆 ¡GUANYADOR ${winner.name}!. BONA FESTA MAJOR DE TERRASSA 2026`,
+    `🏆 GUANYADOR ${winner.name}!. BONA FESTA MAJOR DE TERRASSA 2026`,
     [
       {
         label: 'PARTIDA NOVA',
@@ -1435,7 +1435,7 @@ function handlePostMove() {
     if (bonusMoves.length > 0) {
       // 1. Mostramos el diálogo de forma persistente en el overlay con un botón para avanzar
       renderDiceDialog(
-        '¡HAS MENJAT FITXA! CONTA 20', 
+        'HAS MENJAT FITXA! CONTA 20', 
         [
           { 
             label: 'MOU FITXA +20', 
@@ -1482,7 +1482,7 @@ if (current.pendingFinishBonus) {
 
     if (validOptions.length > 0) {
       renderDiceDialog(
-        '¡HAS ARRIBAT A LA META! CONTA 10',
+        'HAS ARRIBAT A LA META! CONTA 10',
         [
           {
             label: 'MOU FITXA +10',
@@ -1746,7 +1746,7 @@ function processDiceResult(face) {
   const moves = getAvailableMoves(current, face);
   if (moves.length === 0) {
     if (face === 6) {
-      renderDiceDialog(`${current.name} NO POTS MOURE FITXA<br>¡TIRA UN ALTRA VEGADA!`, [], true);
+      renderDiceDialog(`${current.name} NO POTS MOURE<br>TIRA UN ALTRA VEGADA`, [], true);
       rollDiceButton.disabled = false;
       return;
     }
@@ -1905,7 +1905,7 @@ feedbackForm.addEventListener('submit', async (e) => {
 
     // Petición enviada (en modo no-cors la respuesta es opaca, asumimos éxito al no saltar al catch)
     feedbackForm.classList.add('hidden');
-    feedbackStatus.textContent = '¡Gràcies! Els teus comentaris s\'han enviat correctament.';
+    feedbackStatus.textContent = 'Gràcies! Els teus comentaris s\'han enviat correctament.';
     feedbackStatus.style.color = '#4ade80'; // Color VERD brillante adaptado a tu estilo
 
     // Espera 2.5 segundos mostrando el éxito y cierra el modal automáticamente
