@@ -1209,31 +1209,46 @@ function getGameWinner() {
 }
 
 function endGame(winner) {
-  rollDiceButton.disabled = true; //
+  rollDiceButton.disabled = true; 
   renderDiceFace(null); // Limpiamos la cara visual del dado
 
-  // Muestra el mensaje de victoria dentro del diálogo flotante unificado
-  renderDiceDialog(
-    `🏆 GUANYADOR ${winner.name}!. BONA FESTA MAJOR DE TERRASSA 2026`,
-    [
-      {
-        label: 'PARTIDA NOVA',
-        onClick: () => {
-          if (isSoundEnabled) {
-    buttonSound.currentTime = 0; // Reinicia el audio por si se pulsa muy rápido
-    buttonSound.play().catch(error => {
+  // 1. Reproducir el sonido de L'Estapera al instante si el sonido está activado
+  if (isSoundEnabled) {
+    const victorySound = new Audio('estapera.mp3');
+    victorySound.play().catch(error => {
       console.warn("El navegador bloqueó la reproducción automática o el archivo no existe:", error);
     });
   }
-          resetFullGame(); // Ejecuta el reinicio completo
+
+  // Guardamos el mensaje en una constante para no repetirlo
+  const victoryMessage = `🏆 GUANYADOR ${winner.name}!. BONA FESTA MAJOR DE TERRASSA 2026`;
+
+  // 2. Mostramos el mensaje de victoria INICIALMENTE SIN BOTONES
+  renderDiceDialog(victoryMessage, [], false);
+  showDiceOverlay(); // Forzamos a que el overlay se abra en primer plano
+
+  // 3. Retrasamos la aparición del botón de 'PARTIDA NOVA' por 20 segundos (20000 ms)
+  setTimeout(() => {
+    // Volvemos a renderizar el diálogo, esta vez inyectando el botón
+    renderDiceDialog(
+      victoryMessage,
+      [
+        {
+          label: 'PARTIDA NOVA',
+          onClick: () => {
+            if (isSoundEnabled) {
+              buttonSound.currentTime = 0; // Reinicia el audio por si se pulsa muy rápido
+              buttonSound.play().catch(error => {
+                console.warn("El navegador bloqueó la reproducción automática o el archivo no existe:", error);
+              });
+            }
+            resetFullGame(); // Ejecuta el reinicio completo
+          }
         }
-      }
-    ],
-    false
-  );
-  
-  // Forzamos a que el overlay se abra en primer plano
-  showDiceOverlay();
+      ],
+      false
+    );
+  }, 20000);
 }
 
 /**
