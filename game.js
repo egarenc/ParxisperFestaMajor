@@ -631,16 +631,39 @@ function renderBoardPieces() {
       let offsetX = 0;
       let offsetY = 0;
 
-      // Si cohabitan 2 o más fichas en pista o carril, aplicamos offsets para que no se oculten totalmente
+     // Si cohabitan 2 o más fichas, aplicamos offsets para que no se oculten totalmente
       if (occupants.length > 1 && (piece.status === 'track' || piece.status === 'lane' || piece.status === 'finished')) {
-        if (occupants.length === 2) {
-          offsetX = myIndex === 0 ? -6 : 6;
-          offsetY = myIndex === 0 ? -2 : 2;
+        
+        if (piece.status === 'track') {
+          const pos = piece.position;
+          
+          // Definimos los grupos lógicos indicados
+          const isVerti = (pos >= 1 && pos <= 8) || (pos >= 26 && pos <= 42) || (pos >= 60 && pos <= 68);
+          const isHoriz = (pos >= 9 && pos <= 25) || (pos >= 43 && pos <= 59);
+          
+          // Separación en píxeles entre las fichas (puedes ajustar el 10 si las quieres más juntas o separadas)
+          const separacion = 20; 
+          
+          // Fórmula para centrar dinámicamente cualquier número de fichas (2, 3, 4...)
+          const offsetCentrado = (myIndex - (occupants.length - 1) / 2) * separacion;
+
+          if (isVerti) {
+            offsetX = 0;
+            offsetY = offsetCentrado;
+          } else if (isHoriz) {
+            offsetX = offsetCentrado;
+            offsetY = 0;
+          }
         } else {
-          // Soporte hasta para un máximo de 4 fichas apiladas (ej: en meta o barreras seguras)
-          const angle = (myIndex * (360 / occupants.length) * Math.PI) / 180;
-          offsetX = Math.round(Math.cos(angle) * 8);
-          offsetY = Math.round(Math.sin(angle) * 8);
+          // Mantenemos el estilo radial/diagonal para carriles finales y la meta central
+          if (occupants.length === 2) {
+            offsetX = myIndex === 0 ? -6 : 6;
+            offsetY = myIndex === 0 ? -2 : 2;
+          } else {
+            const angle = (myIndex * (360 / occupants.length) * Math.PI) / 180;
+            offsetX = Math.round(Math.cos(angle) * 8);
+            offsetY = Math.round(Math.sin(angle) * 8);
+          }
         }
       }
 
@@ -1390,14 +1413,28 @@ function applyMove(option) {
     //console.log(`🎉 ¡Ficha en meta! Se activa el bonus de +10 pasos para el jugador ${player.name}`);
   }
   
-  const captured = destination.status === 'track' && option.capture && captureAtTarget(destination, player);
+  // Evaluamos si el movimiento es una captura válida ANTES de ejecutarla visualmente
+  const canCapture = destination.status === 'track' && 
+                     option.capture && 
+                     !isSafeSquare(destination.position) && 
+                     hasOpponentOnTrack(destination.position, player);
 
-  if (captured) {
+  if (canCapture) {
     player.pendingCaptureBonus = true;
-    // Detenemos cualquier renderizado automático durante 5.2 segundos para no romper la transición CSS
+    
+    // 1. Renderizamos INMEDIATAMENTE para que la ficha del turno salte a la casilla destino
+    renderAll();
+
+    // 2. Esperamos medio segundo (500ms) y disparamos la animación de la ficha comida volviendo a casa
+    setTimeout(() => {
+      captureAtTarget(destination, player);
+    }, 500);
+
+    // 3. Retrasamos el renderizado final 5.7 segundos (500ms de espera + 5200ms de animación)
     setTimeout(() => {
       renderAll();
-    }, 5200);
+    }, 5700);
+    
   } else {
     renderAll();
   }
