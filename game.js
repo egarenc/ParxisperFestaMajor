@@ -1211,6 +1211,9 @@ function getGameWinner() {
 function endGame(winner) {
   rollDiceButton.disabled = true; 
   renderDiceFace(null); // Limpiamos la cara visual del dado
+        players.forEach((player) => {
+        player.isCPU = false; // Desactivamos el modo CPU para todos los jugadores al finalizar la partida
+        });
 
   // 1. Reproducir el sonido de L'Estapera al instante si el sonido está activado
   if (isSoundEnabled) {
@@ -1236,12 +1239,6 @@ function endGame(winner) {
         {
           label: 'PARTIDA NOVA',
           onClick: () => {
-            if (isSoundEnabled) {
-              buttonSound.currentTime = 0; // Reinicia el audio por si se pulsa muy rápido
-              buttonSound.play().catch(error => {
-                console.warn("El navegador bloqueó la reproducción automática o el archivo no existe:", error);
-              });
-            }
             resetFullGame(); // Ejecuta el reinicio completo
           }
         }
