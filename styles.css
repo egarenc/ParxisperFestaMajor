@@ -161,12 +161,13 @@ button:active {
 
 .board-panel {
   position: relative;
-  min-height: 720px;
+  /*min-height: 720px;*/
   z-index: 1;
 }
 
 .board-screen {
   position: relative;
+  wicth: 100%;
 }
 
 .dice-overlay {
